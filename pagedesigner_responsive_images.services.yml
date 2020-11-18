@@ -1,0 +1,5 @@
+services:
+  pagedesigner_responsive_images.json_decode_twig_extension:
+    class: Drupal\pagedesigner_responsive_images\JSONDecodeTwigExtension
+    tags:
+      - { name: twig.extension }

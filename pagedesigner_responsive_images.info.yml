@@ -1,0 +1,10 @@
+name: 'pagedesigner_responsive_images'
+type: module
+description: 'Pagedesigner Responsiv images extension'
+core: 8.x
+package: 'pagedesigner'
+
+dependencies:
+  - pagedesigner:pagedesigner
+  - pagedesigner:pagedesigner_image
+  - focal_point:focal_point

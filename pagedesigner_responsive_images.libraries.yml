@@ -1,0 +1,8 @@
+pagedesigner:
+  js:
+    resources/js/init-responsive-images.js: {minified: false}
+  css:
+    component:
+      resources/css/responsive-images.css: {minified: false}
+
+

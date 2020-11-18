@@ -1,0 +1,14 @@
+image_style_template.image_style_template.*:
+  type: config_entity
+  label: 'Image style template settings'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    settings:
+      type: string
+      label: 'Settings'
+

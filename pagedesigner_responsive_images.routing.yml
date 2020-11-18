@@ -1,0 +1,43 @@
+pagedesigner.responsive_images_settings:
+  path: 'admin/config/pagedesigner/responsive-images'
+  defaults:
+    _form:  '\Drupal\pagedesigner_responsive_images\Form\PagedesignerResponsiveImagesSettingsForm'
+    _title: 'Pagedesigner responsive images Settings'
+  requirements:
+    _permission: 'administer responsive images settings'
+
+# template management
+entity.image_style_template.collection:
+  path: 'admin/config/pagedesigner/responsive-images/image-style-templates'
+  defaults:
+    _entity_list: 'image_style_template'
+    _title: 'Image style templates'
+  requirements:
+    _permission: 'administer image style templates'
+
+# add form
+entity.image_style_template.add_form:
+  path: 'admin/config/pagedesigner/responsive-images/image-style-templates/add'
+  defaults:
+    _entity_form: image_style_template.default
+    _title: 'Add image style template'
+  requirements:
+    _permission: 'administer image style templates'
+
+# edit form
+entity.image_style_template.edit_form:
+  path: 'admin/config/pagedesigner/responsive-images/image-style-templates/{image_style_template}/edit'
+  defaults:
+    _entity_form: image_style_template.default
+    _title: 'Edit image style template'
+  requirements:
+    _permission: 'administer image style templates'
+
+# delete form
+entity.image_style_template.delete_form:
+  path: 'admin/config/pagedesigner/responsive-images/image-style-templates/{image_style_template}/delete'
+  defaults:
+    _entity_form: image_style_template.delete
+    _title: 'Delete image style template'
+  requirements:
+    _permission: 'administer image style templates'

@@ -1,0 +1,19 @@
+{
+  "name": "iqual/pagedesigner_responsive_images",
+  "description": "An extension to support responsive image in pagedesigner (including focus point)",
+  "type": "drupal-custom-module",
+  "keywords": [
+    "Drupal",
+    "Editing"
+  ],
+  "homepage": "https://github.com/iqual-ch/pagedesigner_responsive_images",
+  "support": {
+    "issues": "https://github.com/iqual-ch/pagedesigner_responsive_images/issues",
+    "source": "https://github.com/iqual-ch/pagedesigner_responsive_images"
+  },
+  "license": "GPL-2.0+",
+  "require": {
+    "drupal/pagedesigner": "*",
+    "drupal/focal_point": "*"
+  }
+}

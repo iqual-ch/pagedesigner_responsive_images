@@ -1,0 +1,10 @@
+.gjs-mdl-container .pd-asset-form .field--type-image img{
+  max-width: 100%;
+  height: auto;
+}
+
+.gjs-editor .gjs-pn-panels .gjs-pn-views-container .gjs-trt-trait > .gjs-trt-trait{
+  background: #eee;
+  padding: 5px;
+  border-top: 1px solid #dedede;
+}

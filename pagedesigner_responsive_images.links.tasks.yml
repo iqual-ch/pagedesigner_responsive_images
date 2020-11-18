@@ -1,0 +1,4 @@
+pagedesigner.responsive_images_settings:
+  title: 'Responsive images settings'
+  route_name: pagedesigner.responsive_images_settings
+  base_route: pagedesigner.admin

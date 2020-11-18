@@ -1,0 +1,5 @@
+entity.image_style_template.add_form:
+  route_name: entity.image_style_template.add_form
+  title: 'Add template'
+  appears_on:
+    - entity.image_style_template.collection

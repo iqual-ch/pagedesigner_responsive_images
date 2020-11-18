@@ -1,0 +1,13 @@
+pagedesigner.responsive_images_settings:
+  title: 'Pagedesigner responsive images'
+  route_name: pagedesigner.responsive_images_settings
+  description: 'Configure Pagedesigner responsive images settings.'
+  parent: pagedesigner.admin
+  weight: 200
+
+entity.image_style_template.collection:
+  title: 'Image style templates'
+  description: 'Image style templates.'
+  route_name: entity.image_style_template.collection
+  parent: pagedesigner.admin
+  weight: 300
