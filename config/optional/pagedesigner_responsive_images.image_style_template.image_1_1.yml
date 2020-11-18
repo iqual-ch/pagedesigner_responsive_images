@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: image_1_1
+label: 'Bild quadratisch (1 / 1)'
+settings: '"1200px:\r\n  pdri_1_1__2000: 2000w\r\n  pdri_1_1__1800: 1800w\r\n  pdri_1_1__1600: 1600w\r\n  pdri_1_1__1400: 1400w\r\n  pdri_1_1__1200: 1200w\r\n  pdri_1_1__1000: 1000w\r\n  pdri_1_1__900: 900w\r\n  pdri_1_1__800: 800w\r\n  pdri_1_1__700: 700w\r\n  pdri_1_1__600: 600w\r\n  pdri_1_1__500: 500w\r\n  pdri_1_1__400: 400w\r\n  pdri_1_1__300: 300w\r\n  pdri_1_1__200: 200w\r\n  pdri_1_1__100: 100w\r\n768px:\r\n  pdri_1_1__2000: 2000w\r\n  pdri_1_1__1800: 1800w\r\n  pdri_1_1__1600: 1600w\r\n  pdri_1_1__1400: 1400w\r\n  pdri_1_1__1200: 1200w\r\n  pdri_1_1__1000: 1000w\r\n  pdri_1_1__900: 900w\r\n  pdri_1_1__800: 800w\r\n  pdri_1_1__700: 700w\r\n  pdri_1_1__600: 600w\r\n  pdri_1_1__500: 500w\r\n  pdri_1_1__400: 400w\r\n  pdri_1_1__300: 300w\r\n  pdri_1_1__200: 200w\r\n  pdri_1_1__100: 100w\r\n300px:\r\n  pdri_1_1__1600: 1600w\r\n  pdri_1_1__1400: 1400w\r\n  pdri_1_1__1200: 1200w\r\n  pdri_1_1__1000: 1000w\r\n  pdri_1_1__900: 900w\r\n  pdri_1_1__800: 800w\r\n  pdri_1_1__700: 700w\r\n  pdri_1_1__600: 600w\r\n  pdri_1_1__500: 500w\r\n  pdri_1_1__400: 400w\r\n  pdri_1_1__300: 300w\r\n  pdri_1_1__200: 200w\r\n  pdri_1_1__100: 100w"'

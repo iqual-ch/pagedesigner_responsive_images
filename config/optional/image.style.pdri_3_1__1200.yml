@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: pdri_3_1__1200
+label: 'Pagedesigner Responsive Image - 3 / 1 @ 1200'
+effects:
+  85d8a033-8a60-46bb-a009-7fb57a81c182:
+    uuid: 85d8a033-8a60-46bb-a009-7fb57a81c182
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1200
+      height: 400
+      crop_type: focal_point

@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: pdri_1920_600__1600
+label: 'Pagedesigner Responsive Image - 1920 / 600 @ 1600'
+effects:
+  85d8a033-8a60-46bb-a009-7fb57a81c182:
+    uuid: 85d8a033-8a60-46bb-a009-7fb57a81c182
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1600
+      height: 500
+      crop_type: focal_point
