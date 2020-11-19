@@ -3,3 +3,8 @@ services:
     class: Drupal\pagedesigner_responsive_images\JSONDecodeTwigExtension
     tags:
       - { name: twig.extension }
+
+  pagedesigner_responsive_images.iamge__stylepath_processor:
+    class: Drupal\pagedesigner_responsive_images\PathProcessor\ImageStylePathProcessor
+    tags:
+      - { name: path_processor_inbound, priority: 250 }
