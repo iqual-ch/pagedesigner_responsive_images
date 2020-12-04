@@ -16,7 +16,6 @@ class ImageStylePathProcessor implements InboundPathProcessorInterface {
    */
   public function processInbound($path, Request $request) {
 
-
     if (strpos($path, '/sites/default/files/styles/') === 0) {
 
       if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $request->getPathInfo())) {

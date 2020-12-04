@@ -8,9 +8,110 @@
         });
       });
 
+      $(document).on('pagedesigner-init-blocks', function (e, editor) {
+        editor.DomComponents.responsiveComponentTypes =  editor.BlockManager.getAll().filter(function(block){
+          return block.attributes.additional.responsive_images
+        }).map(function(block){
+          return block.get('id')
+        });
+
+        editor.DomComponents.responsiveComponentTypes.forEach(function(type){
+
+          let sizesField = editor.BlockManager.get(type).attributes.additional.responsive_images.component_sizes_field;
+
+          editor.DomComponents.addType(type, {
+            extend: type,
+            model: {
+              beforeSave() {
+                this.set(sizesField, JSON.stringify(this.calculateSizes()));
+                this.attributes.attributes[sizesField] = JSON.stringify(this.calculateSizes());
+                this.set('changed', false);
+              },
+              calculateSizes: function () {
+                let $el = $(this.view.el);
+                let $parents = $el.parentsUntil('[data-gjs-type="container"]', Object.keys(drupalSettings.pagedesigner_responsive_images.sizes).join(',')).toArray();
+                let sizes = {};
+                $parents.reverse().forEach(function (parent) {
+                  for (let selector of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes)) {
+                    if ($(parent).is(selector)) {
+                      for (let size of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes[selector])) {
+                        if (sizes[size]) {
+                          if (typeof drupalSettings.pagedesigner_responsive_images.sizes[selector][size] == 'number') {
+                            sizes[size] += ' * ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
+                          } else {
+                            sizes[size] = ' min( ' + sizes[size] + ' , ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size] + ' ) ';
+                          }
+                        } else {
+                          sizes[size] = drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
+                        }
+                      }
+                      break
+                    }
+                  }
+                });
+
+                Object.keys(sizes).map(function (key, index) {
+                  sizes[key] = 'calc(' + sizes[key] + ')';
+                });
+
+                return sizes;
+              }
+            }
+          });
+
+        })
+
+      });
+
+
 
       // extend image trait
       $(document).on('pagedesigner-init-base-components', function (e, editor) {
+
+        editor.DomComponents.getChildren = (model, result = []) => {
+          result.push(model);
+          model.components().each(mod => editor.DomComponents.getChildren(mod, result))
+          return result;
+        }
+
+
+        editor.DomComponents.addType('row', {
+          extend: 'row',
+          model: {
+            afterSave() {
+              editor.DomComponents.getChildren(this).filter(function(cmp){
+                return editor.DomComponents.responsiveComponentTypes.includes(cmp.get('type'))
+              }).forEach(function(cmp){
+                setTimeout(function(){
+                  cmp.save();
+                }, 100);
+              });
+            },
+
+            afterLoad() {
+              editor.runCommand('edit-component');
+              this.get('traits').models.forEach(function (trait) {
+                if (trait.view && trait.view.afterInit) {
+                  trait.view.afterInit();
+                }
+              });
+              editor.Panels.getPanel('spinner-loading').set('visible', false);
+              editor.DomComponents.getChildren(this).filter(function(cmp){
+                return editor.DomComponents.responsiveComponentTypes.includes(cmp.get('type'))
+              }).forEach(function(component){
+
+                if (!isNaN(parseFloat(component.get('entityId'))) && isFinite(component.get('entityId'))) {
+                  Drupal.restconsumer.get('/pagedesigner/element/' + component.get('entityId')).done(function (response) {
+                    component.changed = false;
+                    component.attributes.attributes = Object.assign({}, component.getAttributes(), response['fields']);
+                  });
+                }
+
+              });
+            },
+
+          }
+        });
 
         const TraitManager = editor.TraitManager;
 
@@ -123,38 +224,8 @@
             }
             return this.inputEl;
           },
-          calculateSizes: function () {
-            let $el = $(this.target.view.el);
-            let $parents = $el.parentsUntil('[data-gjs-type="container"]', Object.keys(drupalSettings.pagedesigner_responsive_images.sizes).join(',')).toArray();
-            let sizes = {};
-            $parents.reverse().forEach(function (parent) {
-              for (let selector of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes)) {
-                if ($(parent).is(selector)) {
-                  for (let size of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes[selector])) {
-                    if (sizes[size]) {
-                      if (typeof drupalSettings.pagedesigner_responsive_images.sizes[selector][size] == 'number') {
-                        sizes[size] += ' * ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-                      } else {
-                        sizes[size] = ' min( ' + sizes[size] + ' , ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size] + ' ) ';
-                      }
-                    } else {
-                      sizes[size] = drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-                    }
-                  }
-                  break
-                }
-              }
-            });
-
-            Object.keys(sizes).map(function (key, index) {
-              sizes[key] = 'calc(' + sizes[key] + ')';
-            });
-
-            return sizes;
-          },
 
           afterInit: function () {
-            this.model.set('value', JSON.stringify(this.calculateSizes()));
             $(this.el).hide();
           },
 
