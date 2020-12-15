@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions.
+ */
+
+/**
+ * Install config for focus point widget.
+ */
+function pagedesigner_responsive_images_install() {
+  echo "asdfasdfs\n\n\n";
+}
+
+pagedesigner_responsive_images_install();
