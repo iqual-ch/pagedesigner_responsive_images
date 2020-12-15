@@ -32,7 +32,7 @@ class ResponsiveImage extends Image {
 
       $patternAdditionalDefinition = $this->getPatternDefinition($entity->parent->entity->field_pattern->value)->getAdditional();
 
-      if ($patternAdditionalDefinition['responsive_images']) {
+      if (is_array($patternAdditionalDefinition) && array_key_exists('responsive_images', $patternAdditionalDefinition)) {
         $templateField = $patternAdditionalDefinition['responsive_images']['template_fields'][$entity->field_placeholder->value];
         $sizesField = $patternAdditionalDefinition['responsive_images']['component_sizes_field'];
 
