@@ -258,41 +258,44 @@
               return '';
             }
 
-            let templateField = patterns[this.target.attributes.type].additional.responsive_images.template_fields[this.model.get('name')];
-            let sizesField = patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field;
+            if (patterns[this.target.attributes.type].additional.responsive_images && patterns[this.target.attributes.type].additional.responsive_images.template_fields && patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field ) {
 
-            let template = '';
-            if (this.target.attributes.attributes[templateField]) {
-              template = this.target.attributes.attributes[templateField];
-              if (typeof this.target.attributes.attributes[templateField] != "string") {
-                template = this.target.attributes.attributes[templateField][0];
-              }
-            }
+              let templateField = patterns[this.target.attributes.type].additional.responsive_images.template_fields[this.model.get('name')];
+              let sizesField = patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field;
 
-            let sizes = {};
-            if (this.target.attributes.attributes[sizesField] && typeof this.target.attributes.attributes[sizesField] == 'string' ) {
-              sizes = JSON.parse(this.target.attributes.attributes[sizesField]);
-            }
-
-            if (template && drupalSettings.pagedesigner_responsive_images.image_style_templates[template]) {
-
-              let output = {
-                'img_original': value.src,
-                'img_responsive': {}
-              }
-
-              Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function (breakpoint) {
-                output['img_responsive'][breakpoint] = {
-                  'srcset': '',
-                  'size': ''
+              let template = '';
+              if (this.target.attributes.attributes[templateField]) {
+                template = this.target.attributes.attributes[templateField];
+                if (typeof this.target.attributes.attributes[templateField] != "string") {
+                  template = this.target.attributes.attributes[templateField][0];
                 }
-                Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint]).forEach(function (imageStyle) {
-                  output['img_responsive'][breakpoint]['srcset'] += value.src.replace('/files/', '/files/styles/' + imageStyle + '/public/') + ' ' + drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint][imageStyle] + ", ";
-                  output['img_responsive'][breakpoint]['sizes'] = sizes[breakpoint];
-                })
-              });
+              }
 
-              return JSON.stringify(output);
+              let sizes = {};
+              if (this.target.attributes.attributes[sizesField] && typeof this.target.attributes.attributes[sizesField] == 'string' ) {
+                sizes = JSON.parse(this.target.attributes.attributes[sizesField]);
+              }
+
+              if (template && drupalSettings.pagedesigner_responsive_images.image_style_templates[template]) {
+
+                let output = {
+                  'img_original': value.src,
+                  'img_responsive': {}
+                }
+
+                Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function (breakpoint) {
+                  output['img_responsive'][breakpoint] = {
+                    'srcset': '',
+                    'size': ''
+                  }
+                  Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint]).forEach(function (imageStyle) {
+                    output['img_responsive'][breakpoint]['srcset'] += value.src.replace('/files/', '/files/styles/' + imageStyle + '/public/') + ' ' + drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint][imageStyle] + ", ";
+                    output['img_responsive'][breakpoint]['sizes'] = sizes[breakpoint];
+                  })
+                });
+
+                return JSON.stringify(output);
+              }
             }
 
             return value.src;
