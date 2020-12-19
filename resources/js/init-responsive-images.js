@@ -3,9 +3,10 @@
     attach: function (context, settings) {
 
       $(document).on('pagedesigner-before-setup', function (e, editor) {
-        Twig.extendFunction('json_decode', function (value) {
+        window.TwigFunctions = {};
+        window.TwigFunctions.json_decode = function(value){
           return JSON.parse(value);
-        });
+        }
       });
 
       $(document).on('pagedesigner-init-blocks', function (e, editor) {
@@ -299,169 +300,9 @@
             }
 
             return value.src;
-
           },
-
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // editor.PDMediaManager.addTrait('image', 'file', {
-
-        //   afterInit: function () {
-
-        //     // attach template field
-        //     this.getTemplateField();
-
-        //     // set sizes
-        //     let value = this.model.get('value');
-        //     value.sizes = this.calculateSizes();
-        //     this.model.set('value', value);
-
-        //     $(this.inputEl).on(
-        //       'click',
-        //       (function (trait) {
-        //         return function (e) {
-        //           editor.PDMediaManager.loadForm(trait);
-        //         }
-        //       }(this))
-        //     );
-        //   },
-
-        //   getTemplateField: function () {
-        //     let options = '<option value="">' + Drupal.t('Choose template') + '</option>';
-        //     for (let id of Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates)) {
-        //       if (this.model.get('value') && this.model.get('value').image_style_template && this.model.get('value').image_style_template == id) {
-        //         options += '<option value="' + id + '" selected>' + drupalSettings.pagedesigner_responsive_images.image_style_templates[id] + '</option>';
-        //       } else {
-        //         options += '<option value="' + id + '">' + drupalSettings.pagedesigner_responsive_images.image_style_templates[id] + '</option>';
-        //       }
-        //       options += '<option value="' + id + '">' + drupalSettings.pagedesigner_responsive_images.image_style_templates[id] + '</option>';
-        //     }
-        //     let $select = $('<select>' + options + '</select>');
-        //     let self = this;
-        //     $select.on('change', function () {
-        //       let value = self.model.get('value');
-        //       value.image_style_template = $(this).val();
-        //       self.model.set('value', value);
-        //     });
-        //     $('<div class="gjs-field gjs-field-img-style-tmpl">').append($('<div class="gjs-input-holder">').append($select)).insertBefore(this.$metaHolder);
-        //   },
-
-        //   calculateSizes: function () {
-        //     let $el = $(this.target.view.el);
-        //     let $parents = $el.parentsUntil('[data-gjs-type="container"]', Object.keys(drupalSettings.pagedesigner_responsive_images.sizes).join(',')).toArray();
-        //     let sizes = {};
-        //     $parents.reverse().forEach(function (parent) {
-        //       for (let selector of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes)) {
-        //         if ($(parent).is(selector)) {
-        //           for (let size of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes[selector])) {
-        //             if (sizes[size]) {
-        //               if (typeof drupalSettings.pagedesigner_responsive_images.sizes[selector][size] == 'number') {
-        //                 sizes[size] += ' * ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-        //               } else {
-        //                 sizes[size] = ' min( ' + sizes[size] + ' , ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size] + ' ) ';
-        //               }
-        //             } else {
-        //               sizes[size] = drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-        //             }
-        //           }
-        //           break
-        //         }
-        //       }
-        //     });
-
-        //     Object.keys(sizes).map(function (key, index) {
-        //       sizes[key] = 'calc(' + sizes[key] + ')';
-        //     });
-
-        //     return sizes;
-        //   },
-
-        //   getMetaData: function getMetaData() {
-        //     if (!this.$metaHolder.hasClass('btn-remove')) {
-        //       var trait = this;
-        //       this.$metaHolder.attr('title', Drupal.t('Remove image'));
-        //       this.$metaHolder.click(function () {
-        //         if (confirm(Drupal.t('Remove image from component?'))) {
-        //           trait.model.set('value', { id: null });
-        //           trait.getMetaData()
-        //         }
-        //       });
-        //       this.$metaHolder.addClass('btn-remove');
-        //     }
-        //     if (this.model.get('value') && this.model.get('value').src) {
-        //       return '<img src="' + this.model.get('value').src + '"/>';
-        //     }
-        //     return '';
-        //   }
-
-        // });
-      });
-
-
-
-      // // Extend component
-      // $(document).on('pagedesigner-init-commands', function (e, editor, options) {
-
-      //   editor.on('component:selected', (component, sender) => {
-      //     let $el = $(component.view.el);
-      //     let $parents = $el.parentsUntil('[data-gjs-type="container"]', Object.keys(drupalSettings.pagedesigner_responsive_images.sizes).join(',')).toArray();
-      //     let calc = {};
-      //     $parents.reverse().forEach(function (parent) {
-      //       for (let selector of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes)) {
-      //         if ($(parent).is(selector)) {
-      //           for (let size of Object.keys(drupalSettings.pagedesigner_responsive_images.sizes[selector])) {
-      //             if (calc[size]) {
-      //               if (typeof drupalSettings.pagedesigner_responsive_images.sizes[selector][size] == 'number') {
-      //                 calc[size] += ' * ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-      //               } else {
-      //                 calc[size] = ' min( ' + calc[size] + ' , ' + drupalSettings.pagedesigner_responsive_images.sizes[selector][size] + ' ) ';
-      //               }
-      //             } else {
-      //               calc[size] = drupalSettings.pagedesigner_responsive_images.sizes[selector][size];
-      //             }
-      //           }
-      //           break
-      //         }
-      //       }
-      //     });
-      //     console.log('calc( ' + calc['1200px'] + ' )');
-      //     console.log('calc( ' + calc['768px'] + ' )');
-      //     console.log('calc( ' + calc['300px'] + ' )');
-      //   });
-      // });
+     });
     }
   };
 })(jQuery, Drupal);

@@ -25,8 +25,8 @@ class JSONDecodeTwigExtension extends \Twig_Extension {
    * @return array
    *   Decoded array
    */
-  public function jsonDecode($string) {
-    $string = json_decode($string, TRUE);
+  public function jsonDecode(...$args) {
+    $string = json_decode($args[0], TRUE);
     return $string;
   }
 
