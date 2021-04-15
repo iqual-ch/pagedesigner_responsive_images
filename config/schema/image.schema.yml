@@ -1,0 +1,10 @@
+field.formatter.settings.responsive_image_field:
+  type: mapping
+  label: 'Image formatter for responsive image data'
+  mapping:
+    responsive_image_template:
+      type: string
+      label: 'Image template'
+    responsive_image_component_sizes:
+      type: string
+      label: 'Component sizes'

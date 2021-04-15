@@ -19,13 +19,13 @@ class JSONDecodeTwigExtension extends \Twig_Extension {
   /**
    * Returns associative array from $string.
    *
-   * @param string $string
+   * @param string $args
    *   JSON encoded string.
    *
    * @return array
    *   Decoded array
    */
-  public function jsonDecode(...$args) {
+  public function jsonDecode(string ...$args) {
     $string = json_decode($args[0], TRUE);
     return $string;
   }

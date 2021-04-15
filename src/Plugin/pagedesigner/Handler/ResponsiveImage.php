@@ -73,6 +73,7 @@ class ResponsiveImage extends Image {
               $output = [
                 'img_original' => $file->createFileUrl(FALSE),
                 'img_responsive' => $settings,
+                'uri' => $imgUri,
               ];
 
               if ($output && \json_encode($output)) {
