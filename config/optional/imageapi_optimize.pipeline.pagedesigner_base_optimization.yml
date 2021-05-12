@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - imageapi_optimize_webp
+name: pagedesigner_base_optimization
+label: 'Pagedesigner Base optimization'
+processors:
+  6dfb286a-2f90-4ca4-b5c0-49de0edc8139:
+    uuid: 6dfb286a-2f90-4ca4-b5c0-49de0edc8139
+    id: imageapi_optimize_webp
+    weight: 1
+    data:
+      quality: '90'

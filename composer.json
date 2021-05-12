@@ -13,6 +13,7 @@
   },
   "license": "GPL-2.0+",
   "require": {
-    "drupal/pagedesigner": "*"
+    "drupal/pagedesigner": "*",
+    "drupal/imageapi_optimize_webp": "*"
   }
 }
