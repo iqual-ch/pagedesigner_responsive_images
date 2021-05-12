@@ -1,0 +1,7 @@
+uuid: 8ccc9d18-0ef6-48b2-b5b3-7959cfdc5fcc
+langcode: de
+status: true
+dependencies: {  }
+name: pdri__500
+label: 'Pagedesigner Responsive Image @ 500'
+effects: {  }

@@ -1,6 +1,6 @@
 {
   "name": "iqual/pagedesigner_responsive_images",
-  "description": "An extension to support responsive image in pagedesigner (including focus point)",
+  "description": "An extension to support responsive image in pagedesigner",
   "type": "drupal-custom-module",
   "keywords": [
     "Drupal",
@@ -13,7 +13,6 @@
   },
   "license": "GPL-2.0+",
   "require": {
-    "drupal/pagedesigner": "*",
-    "drupal/focal_point": "*"
+    "drupal/pagedesigner": "*"
   }
 }

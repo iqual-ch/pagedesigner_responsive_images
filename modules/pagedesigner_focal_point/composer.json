@@ -1,0 +1,19 @@
+{
+  "name": "iqual/pagedesigner_focal_point",
+  "description": "Focal point extension for Pagedesigner Responsive Images module",
+  "type": "drupal-custom-module",
+  "keywords": [
+    "Drupal",
+    "Editing"
+  ],
+  "homepage": "https://github.com/iqual-ch/pagedesigner_focal_point",
+  "support": {
+    "issues": "https://github.com/iqual-ch/pagedesigner_focal_point/issues",
+    "source": "https://github.com/iqual-ch/pagedesigner_focal_point"
+  },
+  "license": "GPL-2.0+",
+  "require": {
+    "iqual/pagedesigner_responsive_images": "*",
+    "drupal/focal_point": "*"
+  }
+}

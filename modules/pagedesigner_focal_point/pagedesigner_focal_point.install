@@ -1,17 +1,17 @@
 <?php
 
-use Drupal\Core\Config\FileStorage;
-
 /**
  * @file
  * Install, update and uninstall functions.
  */
 
+use Drupal\Core\Config\FileStorage;
+
 /**
  * Install config for focus point widget.
  */
 function pagedesigner_responsive_images_install() {
-  $config_path = drupal_get_path('module', 'pagedesigner_responsive_images') . '/config/optional';
+  $config_path = drupal_get_path('module', 'pagedesigner_focal_point') . '/config/optional';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
   $config_storage->write('core.entity_form_display.media.image.default', $source->read('core.entity_form_display.media.image.default'));

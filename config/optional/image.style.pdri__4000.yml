@@ -1,0 +1,15 @@
+uuid: 0ce429b0-51db-439e-bc82-838a27b4f53f
+langcode: de
+status: true
+dependencies: {  }
+name: pdri__4000
+label: 'Pagedesigner Responsive Image @ 4000'
+effects:
+  9f0fdaa9-7164-4aaf-aa69-69623b08abcf:
+    uuid: 9f0fdaa9-7164-4aaf-aa69-69623b08abcf
+    id: image_scale
+    weight: 1
+    data:
+      width: 4000
+      height: null
+      upscale: false

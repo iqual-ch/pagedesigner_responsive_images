@@ -1,0 +1,15 @@
+uuid: 7a3a5de4-788b-4109-8f92-e8abf39c22a5
+langcode: de
+status: true
+dependencies: {  }
+name: pdri__900
+label: 'Pagedesigner Responsive Image @ 900'
+effects:
+  d3a279bd-8f66-4667-a2b1-ddc5e0cc83a1:
+    uuid: d3a279bd-8f66-4667-a2b1-ddc5e0cc83a1
+    id: image_scale
+    weight: 1
+    data:
+      width: 900
+      height: null
+      upscale: false
