@@ -10,7 +10,7 @@ use Drupal\Core\Config\FileStorage;
 /**
  * Install config for focus point widget.
  */
-function pagedesigner_responsive_images_install() {
+function pagedesigner_focal_point_install() {
   $config_path = drupal_get_path('module', 'pagedesigner_focal_point') . '/config/optional';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');

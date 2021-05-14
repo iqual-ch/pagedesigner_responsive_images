@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Install Image optimization config.
+ */
+function pagedesigner_responsive_images_update_8001(&$sandbox) {
+  $config_path = drupal_get_path('module', 'pagedesigner_responsive_images') . '/config/optional';
+  $source = new FileStorage($config_path);
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->write('imageapi_optimize.pipeline.pagedesigner_base_optimization', $source->read('imageapi_optimize.pipeline.pagedesigner_base_optimization'));
+  $config_storage->write('imageapi_optimize.settings', $source->read('imageapi_optimize.settings'));
+  echo "Installed optimization pipeline.\n";
+}
