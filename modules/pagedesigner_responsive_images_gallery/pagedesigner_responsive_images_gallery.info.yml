@@ -1,0 +1,9 @@
+name: 'pagedesigner_responsive_images_gallery'
+type: module
+description: 'Pagedesigner Responsiv images extension for galleries'
+core: 8.x
+package: 'pagedesigner'
+
+dependencies:
+  - pagedesigner_responsive_images:pagedesigner_responsive_images
+  - pagedesigner:pagedesigner_gallery
