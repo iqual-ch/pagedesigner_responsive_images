@@ -27,64 +27,7 @@ class ResponsiveImage extends Image {
   public function get(Element $entity, string &$result = '') {
     if ($entity->field_media->entity != NULL && $entity->field_media->entity->field_media_image->entity != NULL) {
       $file = $entity->field_media->entity->field_media_image->entity;
-
-      $imgUri = $file->getFileUri();
-
-      $patternAdditionalDefinition = $this->getPatternDefinition($entity->parent->entity->field_pattern->value)->getAdditional();
-
-      if (is_array($patternAdditionalDefinition) && array_key_exists('responsive_images', $patternAdditionalDefinition)) {
-        $templateField = $patternAdditionalDefinition['responsive_images']['template_fields'][$entity->field_placeholder->value];
-        $sizesField = $patternAdditionalDefinition['responsive_images']['component_sizes_field'];
-
-        if ($templateField && $sizesField) {
-          $template = FALSE;
-          // Hacky, needs rework.
-          foreach ($entity->parent->entity->children as $item) {
-            if ($item->entity->field_placeholder->value == $templateField) {
-              $template = $item->entity->field_content->value;
-            }
-
-            if ($item->entity->field_placeholder->value == $sizesField) {
-              $sizes = json_decode($item->entity->field_content->value, TRUE);
-            }
-          }
-
-          if ($template) {
-            $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load($template);
-            if ($config) {
-              $settings = YamlParser::parse(YamlSerializer::decode($config->settings));
-
-              array_walk($settings, function (&$imageStyles, $breakpoint) use ($sizes, $imgUri) {
-                $src = '';
-
-                foreach ($imageStyles as $imageStyle => $width) {
-                  $style = \Drupal::entityTypeManager()
-                    ->getStorage('image_style')
-                    ->load($imageStyle);
-                  $src .= $style->buildUrl($imgUri) . ' ' . $width . ', ';
-                }
-
-                $imageStyles = [
-                  'srcset' => substr($src, 0, -2),
-                  'sizes' => $sizes[$breakpoint],
-                ];
-              });
-
-              $output = [
-                'img_original' => $file->createFileUrl(FALSE),
-                'img_responsive' => $settings,
-                'uri' => $imgUri,
-              ];
-
-              if ($output && \json_encode($output)) {
-                $result = \json_encode($output);
-                return;
-              }
-            }
-          }
-        }
-      }
-      $result = $file->createFileUrl(FALSE);
+      $result = $file->getFileUri();
     }
   }
 
