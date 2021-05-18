@@ -7,7 +7,37 @@
         window.TwigFunctions.json_decode = function(value){
           return JSON.parse(value);
         }
+
+        Twig.extendFunction('image_style', function (sizes, template) {
+          let imageStyles = {}
+          Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function(breakpoint){
+            imageStyles[breakpoint] = {
+              'templates' : drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint],
+              'size' : JSON.parse(sizes)[breakpoint]
+            }
+          });
+          return imageStyles;
+        });
+
+        Twig.extendFunction('create_attribute', function (attributes) {
+          let attr = '';
+          attributes._keys.forEach(function(key){
+              attr += key + '="'+ attributes[key] + '" ';
+          })
+          return attr;
+        });
+
+        Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
+          return uri.replace('/files/', '/files/styles/' + imageStyle + '/public/').replace('public:/', '')
+        });
+
+        Twig.extendFunction('file_url', function (uri) {
+          return uri.replace('public:/', '')
+        });
       });
+
+
+
 
       $(document).on('pagedesigner-init-blocks', function (e, editor) {
         editor.DomComponents.responsiveComponentTypes =  editor.BlockManager.getAll().filter(function(block){
@@ -259,47 +289,47 @@
               return '';
             }
 
-            if (patterns[this.target.attributes.type].additional.responsive_images && patterns[this.target.attributes.type].additional.responsive_images.template_fields && patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field ) {
+            // if (patterns[this.target.attributes.type].additional.responsive_images && patterns[this.target.attributes.type].additional.responsive_images.template_fields && patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field ) {
 
-              let templateField = patterns[this.target.attributes.type].additional.responsive_images.template_fields[this.model.get('name')];
-              let sizesField = patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field;
+            //   let templateField = patterns[this.target.attributes.type].additional.responsive_images.template_fields[this.model.get('name')];
+            //   let sizesField = patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field;
 
-              let template = '';
-              if (this.target.attributes.attributes[templateField]) {
-                template = this.target.attributes.attributes[templateField];
-                if (typeof this.target.attributes.attributes[templateField] != "string") {
-                  template = this.target.attributes.attributes[templateField][0];
-                }
-              }
+            //   let template = '';
+            //   if (this.target.attributes.attributes[templateField]) {
+            //     template = this.target.attributes.attributes[templateField];
+            //     if (typeof this.target.attributes.attributes[templateField] != "string") {
+            //       template = this.target.attributes.attributes[templateField][0];
+            //     }
+            //   }
 
-              let sizes = {};
-              if (this.target.attributes.attributes[sizesField] && typeof this.target.attributes.attributes[sizesField] == 'string' ) {
-                sizes = JSON.parse(this.target.attributes.attributes[sizesField]);
-              }
+            //   let sizes = {};
+            //   if (this.target.attributes.attributes[sizesField] && typeof this.target.attributes.attributes[sizesField] == 'string' ) {
+            //     sizes = JSON.parse(this.target.attributes.attributes[sizesField]);
+            //   }
 
-              if (template && drupalSettings.pagedesigner_responsive_images.image_style_templates[template]) {
+            //   if (template && drupalSettings.pagedesigner_responsive_images.image_style_templates[template]) {
 
-                let output = {
-                  'img_original': value.src,
-                  'img_responsive': {}
-                }
+            //     let output = {
+            //       'img_original': value.src,
+            //       'img_responsive': {}
+            //     }
 
-                Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function (breakpoint) {
-                  output['img_responsive'][breakpoint] = {
-                    'srcset': '',
-                    'size': ''
-                  }
-                  Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint]).forEach(function (imageStyle) {
-                    output['img_responsive'][breakpoint]['srcset'] += value.src.replace('/files/', '/files/styles/' + imageStyle + '/public/') + ' ' + drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint][imageStyle] + ", ";
-                    output['img_responsive'][breakpoint]['sizes'] = sizes[breakpoint];
-                  })
-                });
+            //     Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function (breakpoint) {
+            //       output['img_responsive'][breakpoint] = {
+            //         'srcset': '',
+            //         'size': ''
+            //       }
+            //       Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint]).forEach(function (imageStyle) {
+            //         output['img_responsive'][breakpoint]['srcset'] += value.src.replace('/files/', '/files/styles/' + imageStyle + '/public/') + ' ' + drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint][imageStyle] + ", ";
+            //         output['img_responsive'][breakpoint]['sizes'] = sizes[breakpoint];
+            //       })
+            //     });
 
-                return JSON.stringify(output);
-              }
-            }
+            //     return JSON.stringify(output);
+            //   }
+            // }
 
-            return value.src;
+            return 'public:/' + value.src.replace(location.origin, '');
           },
         });
      });
