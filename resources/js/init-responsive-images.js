@@ -9,35 +9,35 @@
         }
 
         Twig.extendFunction('image_style', function (sizes, template) {
-          let imageStyles = {}
-          Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function(breakpoint){
-            imageStyles[breakpoint] = {
-              'templates' : drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint],
-              'size' : JSON.parse(sizes)[breakpoint]
-            }
-          });
-          return imageStyles;
+          if (sizes && template) {
+            let imageStyles = {}
+            Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function(breakpoint){
+              imageStyles[breakpoint] = {
+                'templates' : drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint],
+                'size' : JSON.parse(sizes)[breakpoint]
+              }
+            });
+            return imageStyles;
+          }
+          return [];
         });
 
         Twig.extendFunction('create_attribute', function (attributes) {
           let attr = '';
           attributes._keys.forEach(function(key){
-              attr += key + '="'+ attributes[key] + '" ';
+            attr += key + '="'+ attributes[key] + '" ';
           })
           return attr;
         });
 
         Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
-          return uri.replace('/files/', '/files/styles/' + imageStyle + '/public/').replace('public:/', '')
+          return uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
         });
 
         Twig.extendFunction('file_url', function (uri) {
           return uri.replace('public:/', '')
         });
       });
-
-
-
 
       $(document).on('pagedesigner-init-blocks', function (e, editor) {
         editor.DomComponents.responsiveComponentTypes =  editor.BlockManager.getAll().filter(function(block){
@@ -86,15 +86,11 @@
                 });
 
                 return sizes;
-              }
+              },
             }
           });
-
         })
-
       });
-
-
 
       // extend image trait
       $(document).on('pagedesigner-init-base-components', function (e, editor) {
@@ -104,7 +100,6 @@
           model.components().each(mod => editor.DomComponents.getChildren(mod, result))
           return result;
         }
-
 
         editor.DomComponents.addType('row', {
           extend: 'row',
@@ -118,7 +113,6 @@
                 }, 100);
               });
             },
-
             afterLoad() {
               editor.runCommand('edit-component');
               this.get('traits').models.forEach(function (trait) {
@@ -130,17 +124,14 @@
               editor.DomComponents.getChildren(this).filter(function(cmp){
                 return editor.DomComponents.responsiveComponentTypes.includes(cmp.get('type'))
               }).forEach(function(component){
-
                 if (!isNaN(parseFloat(component.get('entityId'))) && isFinite(component.get('entityId'))) {
                   Drupal.restconsumer.get('/pagedesigner/element/' + component.get('entityId')).done(function (response) {
                     component.changed = false;
                     component.attributes.attributes = Object.assign({}, component.getAttributes(), response['fields']);
                   });
                 }
-
               });
             },
-
           }
         });
 
@@ -248,9 +239,12 @@
             change: 'onChange', // trigger parent onChange method on keyup
           },
           getInputEl: function () {
+            let value = JSON.stringify(this.model.target.calculateSizes());
+            this.model.setTargetValue(value);
+            this.model.target.attributes.attributes[this.model.get('name')] = value;
             if (!this.inputEl) {
-              var value = this.model.getTargetValue();
-              var input = $('<input type="hidden" value="' + value + '" />');
+              var input = $('<input type="hidden" />');
+              input.val(value);
               this.inputEl = input.get(0);
             }
             return this.inputEl;
@@ -285,53 +279,55 @@
           getRenderValue: function () {
             let value = this.model.get('value');
 
-            if (!value) {
+            if (!value || !value.id) {
               return '';
             }
-
-            // if (patterns[this.target.attributes.type].additional.responsive_images && patterns[this.target.attributes.type].additional.responsive_images.template_fields && patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field ) {
-
-            //   let templateField = patterns[this.target.attributes.type].additional.responsive_images.template_fields[this.model.get('name')];
-            //   let sizesField = patterns[this.target.attributes.type].additional.responsive_images.component_sizes_field;
-
-            //   let template = '';
-            //   if (this.target.attributes.attributes[templateField]) {
-            //     template = this.target.attributes.attributes[templateField];
-            //     if (typeof this.target.attributes.attributes[templateField] != "string") {
-            //       template = this.target.attributes.attributes[templateField][0];
-            //     }
-            //   }
-
-            //   let sizes = {};
-            //   if (this.target.attributes.attributes[sizesField] && typeof this.target.attributes.attributes[sizesField] == 'string' ) {
-            //     sizes = JSON.parse(this.target.attributes.attributes[sizesField]);
-            //   }
-
-            //   if (template && drupalSettings.pagedesigner_responsive_images.image_style_templates[template]) {
-
-            //     let output = {
-            //       'img_original': value.src,
-            //       'img_responsive': {}
-            //     }
-
-            //     Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings).forEach(function (breakpoint) {
-            //       output['img_responsive'][breakpoint] = {
-            //         'srcset': '',
-            //         'size': ''
-            //       }
-            //       Object.keys(drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint]).forEach(function (imageStyle) {
-            //         output['img_responsive'][breakpoint]['srcset'] += value.src.replace('/files/', '/files/styles/' + imageStyle + '/public/') + ' ' + drupalSettings.pagedesigner_responsive_images.image_style_templates[template].settings[breakpoint][imageStyle] + ", ";
-            //         output['img_responsive'][breakpoint]['sizes'] = sizes[breakpoint];
-            //       })
-            //     });
-
-            //     return JSON.stringify(output);
-            //   }
-            // }
 
             return 'public:/' + value.src.replace(location.origin, '');
           },
         });
+
+
+        AssetManager = editor.AssetManager;
+        var galleryTrait = null;
+
+        TraitManager.addType('gallery',
+        Object.assign({}, TraitManager.defaultTrait, {
+          events: {
+            change: 'onChange',  // trigger parent onChange method on keyup
+          },
+          getInputEl: function () {
+            if (!this.inputEl) {
+              galleryTrait = new GalleryTrait(settings);
+              this.inputEl = galleryTrait.getContainer(this);
+              var value = this.model.get('value');
+              if (value && value.id && value.name) {
+                galleryTrait.setValue(value);
+              }
+              AssetManager.getType('image').multiSelect = true;
+            }
+            return this.inputEl;
+          },
+          getRenderValue: function () {
+            if (this.model.get('value') && this.model.get('value').items) {
+              return  this.model.get('value').items.map(function(item){
+                item.uri = 'public:/' + item.src.replace(location.origin, '');
+                return item;
+              });
+            }
+            return  [];
+          },
+          setInputValue: function (value) {
+            galleryTrait.setValue(value);
+          },
+          setValueFromAssetManager: function (value) {
+            for (var x in value) {
+              galleryTrait.addImage(value[x]);
+            }
+          },
+          isMultiSelect: true
+        })
+      );
      });
     }
   };
