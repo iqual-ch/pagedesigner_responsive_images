@@ -94,5 +94,4 @@ class ResponsiveImageGalleryGallery extends GalleryGallery {
     return implode(' ', $stringData);
   }
 
-
 }
