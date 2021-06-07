@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\pagedesigner_responsive_images_gallery\Plugin\pagedesigner\Handler;
+namespace Drupal\pagedesigner_responsive_images\Plugin\pagedesigner\Handler;
 
 use Drupal\pagedesigner\Entity\Element;
 use Drupal\pagedesigner_gallery\Plugin\pagedesigner\Handler\GalleryGallery;
