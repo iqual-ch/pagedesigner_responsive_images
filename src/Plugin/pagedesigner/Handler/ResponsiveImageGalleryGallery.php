@@ -4,8 +4,6 @@ namespace Drupal\pagedesigner_responsive_images\Plugin\pagedesigner\Handler;
 
 use Drupal\pagedesigner\Entity\Element;
 use Drupal\pagedesigner_gallery\Plugin\pagedesigner\Handler\GalleryGallery;
-use Symfony\Component\Yaml\Yaml as YamlParser;
-use Drupal\Component\Serialization\Yaml as YamlSerializer;
 
 /**
  * Process entities of type "gallery_gallery".
