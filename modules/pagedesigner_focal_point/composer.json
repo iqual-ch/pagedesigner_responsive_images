@@ -13,7 +13,6 @@
   },
   "license": "GPL-2.0+",
   "require": {
-    "iqual/pagedesigner_responsive_images": "*",
-    "drupal/focal_point": "*"
+    "iqual/pagedesigner_responsive_images": "*"
   }
 }

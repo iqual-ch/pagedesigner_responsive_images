@@ -14,6 +14,7 @@
   "license": "GPL-2.0+",
   "require": {
     "drupal/pagedesigner": "*",
-    "drupal/imageapi_optimize_webp": "*"
+    "drupal/imageapi_optimize_webp": "*",
+    "drupal/focal_point": "*"
   }
 }
