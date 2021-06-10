@@ -14,6 +14,8 @@ function pagedesigner_focal_point_install() {
   $config_path = drupal_get_path('module', 'pagedesigner_focal_point') . '/config/optional';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
-  $config_storage->write('core.entity_form_display.media.image.default', $source->read('core.entity_form_display.media.image.default'));
-  echo "Installed focal point widget for image field.\n";
+  if ($source->read('core.entity_form_display.media.image.default')) {
+    $config_storage->write('core.entity_form_display.media.image.default', $source->read('core.entity_form_display.media.image.default'));
+    echo "Installed focal point widget for image field.\n";
+  }
 }
