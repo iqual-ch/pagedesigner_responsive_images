@@ -4,4 +4,12 @@ status: true
 dependencies: {  }
 name: pdri__500
 label: 'Pagedesigner Responsive Image @ 500'
-effects: {  }
+effects:
+  fac10c18-9bbf-43f4-8615-325c4b0f40ed:
+    uuid: fac10c18-9bbf-43f4-8615-325c4b0f40ed
+    id: image_scale
+    weight: 1
+    data:
+      width: 500
+      height: null
+      upscale: false
