@@ -25,7 +25,7 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
   /**
    * Returns associative array from $string.
    *
-   * @param $sizes
+   * @param array|object $sizes
    *   JSON encoded component sizes. Can be of mulitple types.
    * @param string $template
    *   Image style template.
@@ -34,15 +34,15 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
    *   Array containing the image styles.
    */
   public function getImageStyles($sizes, string $template) {
-    if (array_key_exists('#text', $sizes) && is_string($sizes['#text'])) {
+    if (\is_array($sizes) && array_key_exists('#text', $sizes) && is_string($sizes['#text'])) {
       $sizes = json_decode($sizes['#text'], TRUE);
     }
 
-    if (get_class($sizes) == "Drupal\Core\Render\Markup") {
+    if (\is_object($sizes) && get_class($sizes) == "Drupal\Core\Render\Markup") {
       $sizes = json_decode($sizes->jsonSerialize(), TRUE);
     }
 
-    //$template = $template['#plain_text'];
+    // $template = $template['#plain_text'];
     $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load($template);
     $settings = YamlParser::parse(YamlSerializer::decode($config->settings));
     $imageStyles = [];
