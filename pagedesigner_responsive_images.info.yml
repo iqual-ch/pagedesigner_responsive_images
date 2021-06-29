@@ -7,4 +7,4 @@ package: 'pagedesigner'
 dependencies:
   - pagedesigner:pagedesigner
   - pagedesigner:pagedesigner_image
-  - focal_point:focal_point
+  - imageapi_optimize:imageapi_optimize_webp

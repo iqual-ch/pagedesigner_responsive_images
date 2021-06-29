@@ -1,0 +1,15 @@
+uuid: 5f070448-0163-4ae2-b619-dd8c371c4bb6
+langcode: de
+status: true
+dependencies: {  }
+name: pdri__700
+label: 'Pagedesigner Responsive Image @ 700'
+effects:
+  34955739-dc2a-43f3-8cdf-b3749e01b0a8:
+    uuid: 34955739-dc2a-43f3-8cdf-b3749e01b0a8
+    id: image_scale
+    weight: 1
+    data:
+      width: 700
+      height: null
+      upscale: false

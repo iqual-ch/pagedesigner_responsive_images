@@ -4,7 +4,16 @@ services:
     tags:
       - { name: twig.extension }
 
+  pagedesigner_responsive_images.responsive_image_styles:
+    class: Drupal\pagedesigner_responsive_images\ResponsiveImageStylesTwigExtension
+    tags:
+      - { name: twig.extension }
+
   pagedesigner_responsive_images.image__stylepath_processor:
     class: Drupal\pagedesigner_responsive_images\PathProcessor\ImageStylePathProcessor
     tags:
       - { name: path_processor_inbound, priority: 250 }
+
+
+
+

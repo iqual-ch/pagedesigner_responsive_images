@@ -1,19 +1,20 @@
 <?php
 
-use Drupal\Core\Config\FileStorage;
-
 /**
  * @file
  * Install, update and uninstall functions.
  */
 
+use Drupal\Core\Config\FileStorage;
+
 /**
- * Install config for focus point widget.
+ * Install Image optimization config.
  */
-function pagedesigner_responsive_images_install() {
+function pagedesigner_responsive_images_update_8001(&$sandbox) {
   $config_path = drupal_get_path('module', 'pagedesigner_responsive_images') . '/config/optional';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
-  $config_storage->write('core.entity_form_display.media.image.default', $source->read('core.entity_form_display.media.image.default'));
-  echo "Installed focal point widget for image field.\n";
+  $config_storage->write('imageapi_optimize.pipeline.pagedesigner_base_optimization', $source->read('imageapi_optimize.pipeline.pagedesigner_base_optimization'));
+  $config_storage->write('imageapi_optimize.settings', $source->read('imageapi_optimize.settings'));
+  echo "Installed optimization pipeline.\n";
 }

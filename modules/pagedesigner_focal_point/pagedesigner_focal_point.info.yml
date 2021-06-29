@@ -1,0 +1,9 @@
+name: 'pagedesigner_focal_point'
+type: module
+description: 'Focal point extension for Pagedesigner Responsive Images module'
+core: 8.x
+package: 'pagedesigner'
+
+dependencies:
+  - pagedesigner_responsive_images:pagedesigner_responsive_images
+  - focal_point:focal_point
