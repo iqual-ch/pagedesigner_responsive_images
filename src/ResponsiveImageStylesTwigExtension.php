@@ -34,12 +34,17 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
    *   Array containing the image styles.
    */
   public function getImageStyles($sizes, string $template) {
+
     if (\is_array($sizes) && array_key_exists('#text', $sizes) && is_string($sizes['#text'])) {
       $sizes = json_decode($sizes['#text'], TRUE);
     }
 
     if (\is_object($sizes) && get_class($sizes) == "Drupal\Core\Render\Markup") {
       $sizes = json_decode($sizes->jsonSerialize(), TRUE);
+    }
+
+    if (\is_string($sizes)) {
+      $sizes = json_decode($sizes, TRUE);
     }
 
     // $template = $template['#plain_text'];
