@@ -3,11 +3,6 @@
     attach: function (context, settings) {
 
       $(document).on('pagedesigner-before-setup', function (e, editor) {
-        window.TwigFunctions = {};
-        window.TwigFunctions.json_decode = function(value){
-          return JSON.parse(value);
-        }
-
         Twig.extendFunction('image_style', function (sizes, template) {
           if (sizes && template) {
             let imageStyles = {}
@@ -31,7 +26,11 @@
         });
 
         Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
-          return uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
+          let url = uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
+          setTimeout(function(){
+            $.get(url);
+          }, 500);
+          return url;
         });
 
         Twig.extendFunction('file_url', function (uri) {
