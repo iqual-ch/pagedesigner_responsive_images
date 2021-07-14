@@ -26,12 +26,23 @@
         });
 
         Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
+          if (!uri) {
+            return;
+          }
+          if (!imageStyle) {
+            let url = uri.replace('public://sites/', '/sites/');
+            url = url.replace('public://', '/sites/default/files/');
+            return url
+          }
           let url = uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
           url = url.replace('public://', '/sites/default/files/styles/' + imageStyle + '/public/' )
           return url;
         });
 
         Twig.extendFunction('file_url', function (uri) {
+          if (!uri) {
+            return;
+          }
           let url = uri.replace('public://sites/', '/sites/');
           url = url.replace('public://', '/sites/default/files/');
           return url
