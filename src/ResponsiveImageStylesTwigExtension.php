@@ -76,7 +76,8 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
       return file_create_url($uri);
     }
     $style = ImageStyle::load($styleName);
-    return $style->buildUrl($uri);
+    $url = $style->buildUrl($uri);
+    return $url;
   }
 
 }

@@ -28,9 +28,6 @@
         Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
           let url = uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
           url = url.replace('public://', '/sites/default/files/styles/' + imageStyle + '/public/' )
-          // setTimeout(function(){
-          //   $.get(url);
-          // }, 500);
           return url;
         });
 

@@ -30,6 +30,11 @@ class ImageStylePathProcessor implements InboundPathProcessorInterface {
           ->load($imageStyle);
 
         $imgUrl = $style->buildUrl($imgUri);
+        $derivativeUri = $style->buildUri($imgUri);
+        if (!file_exists($derivativeUri)) {
+          $style->createDerivative($imgUri, $derivativeUri);
+        }
+
         $response = new RedirectResponse($imgUrl);
         $response->send();
       }
