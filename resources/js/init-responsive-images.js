@@ -27,14 +27,17 @@
 
         Twig.extendFunction('styled_image_url', function (uri, imageStyle) {
           let url = uri.replace('public://sites/default/files', '/sites/default/files').replace('/files/', '/files/styles/' + imageStyle + '/public/');
-          setTimeout(function(){
-            $.get(url);
-          }, 500);
+          url = url.replace('public://', '/sites/default/files/styles/' + imageStyle + '/public/' )
+          // setTimeout(function(){
+          //   $.get(url);
+          // }, 500);
           return url;
         });
 
         Twig.extendFunction('file_url', function (uri) {
-          return uri.replace('public:/', '')
+          let url = uri.replace('public://sites/', '/sites/');
+          url = url.replace('public://', '/sites/default/files/');
+          return url
         });
       });
 
@@ -310,6 +313,11 @@
           getRenderValue: function () {
             if (this.model.get('value') && this.model.get('value').items) {
               return  this.model.get('value').items.map(function(item){
+                if (item.uri) {
+                  item.uri = item.uri.replace('/styles/pagedesigner_default/public', '');
+                  return item;
+                }
+
                 item.uri = 'public:/' + item.src.replace(location.origin, '');
                 return item;
               });
