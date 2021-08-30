@@ -2,6 +2,7 @@ name: 'pagedesigner_responsive_images'
 type: module
 description: 'Pagedesigner Responsiv images extension'
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: 'pagedesigner'
 
 dependencies:
