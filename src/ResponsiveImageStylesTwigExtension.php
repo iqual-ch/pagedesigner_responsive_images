@@ -49,8 +49,11 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
 
     // $template = $template['#plain_text'];
     $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load($template);
-    $settings = YamlParser::parse(YamlSerializer::decode($config->settings));
+    if ($config == null) {
+      $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load('image_standard');
+    }
     $imageStyles = [];
+    $settings = YamlParser::parse(YamlSerializer::decode($config->settings));
     foreach ($settings as $breakpont => $templates) {
       $imageStyles[$breakpont] = [
         'templates' => $templates,
