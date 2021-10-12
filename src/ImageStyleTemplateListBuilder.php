@@ -39,7 +39,7 @@ class ImageStyleTemplateListBuilder extends ConfigEntityListBuilder {
       $operations['edit'] = [
         'title' => t('Edit Image Style Template'),
         'weight' => 20,
-        'url' => $entity->urlInfo('edit-form'),
+        'url' => $entity->toUrl('edit-form'),
       ];
     }
     return $operations;
