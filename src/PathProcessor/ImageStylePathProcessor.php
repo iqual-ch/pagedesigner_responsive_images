@@ -23,7 +23,7 @@ class ImageStylePathProcessor implements InboundPathProcessorInterface {
         $imageStyle = $pathParts[0];
         array_shift($pathParts);
         $uriBase = array_shift($pathParts);
-        $imgUri = $uriBase . '://' . implode('/', $pathParts);
+        $imgUri = $uriBase . '://' . rawurldecode(implode('/', $pathParts));
 
         $style = \Drupal::entityTypeManager()
           ->getStorage('image_style')
