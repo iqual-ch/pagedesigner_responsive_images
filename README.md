@@ -83,7 +83,7 @@ Use the following twig code for the image (include, provided by iq_barrio)
       'template' : 'image_standard',                                // Machine name of image style template
       'sizes': {'1200px':'350px','768px':'50vw','300px':'100vw'},   // The size of the rendered image, per breakpoint. 
       'attributes' : {
-        ... additional attributes                                   // Additional attributes for the image ta
+        ... additional attributes                                   // Additional attributes for the <img> tag
       }
      } %}
 
