@@ -79,12 +79,12 @@ Use the following twig code for the image (include, provided by iq_barrio)
 Use the following twig code for the image (include, provided by iq_barrio)
 
     {% include '@iq_barrio/includes/responsive-image.html.twig' with {
-      'image' : image.entity.field_media_image.entity.uri.value, // Image field
-      'template' : 'image_standard',            // Machine name of image style template
-      'sizes': {'1200px':'350px','768px':'50vw','300px':'100vw'},
-        'attributes' : {
-          ... additional attributes
-        }
+      'image' : image.entity.field_media_image.entity.uri.value,    // URI of the image
+      'template' : 'image_standard',                                // Machine name of image style template
+      'sizes': {'1200px':'350px','768px':'50vw','300px':'100vw'},   // The size of the rendered image, per breakpoint. 
+      'attributes' : {
+        ... additional attributes                                   // Additional attributes for the image ta
+      }
      } %}
 
 ### Advanced usage with non-iq_barrio-based themes
