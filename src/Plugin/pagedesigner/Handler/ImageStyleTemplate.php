@@ -23,7 +23,6 @@ class ImageStyleTemplate extends Select {
    * {@inheritdoc}
    */
   public function collectAttachments(array &$attachments) {
-    // $attachments['library'][] = 'pagedesigner_image/pagedesigner';
     $attachments['library'][] = 'pagedesigner_responsive_images/pagedesigner';
 
     $storage = \Drupal::entityTypeManager()->getStorage('image_style_template');

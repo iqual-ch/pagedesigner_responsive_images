@@ -5,20 +5,21 @@ namespace Drupal\pagedesigner_responsive_images;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 use Drupal\Component\Serialization\Yaml as YamlSerializer;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\Core\Url;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Extend Drupal's Twig_Extension class.
  */
-class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
+class ResponsiveImageStylesTwigExtension extends AbstractExtension {
 
   /**
    * {@inheritdoc}
    */
   public function getFunctions() {
     return [
-      new \Twig_SimpleFunction('image_style', [$this, 'getImageStyles']),
-      new \Twig_SimpleFunction('styled_image_url', [$this, 'getStyledImageUrl']),
+      new TwigFunction('image_style', [$this, 'getImageStyles']),
+      new TwigFunction('styled_image_url', [$this, 'getStyledImageUrl']),
     ];
   }
 
@@ -49,7 +50,7 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
 
     // $template = $template['#plain_text'];
     $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load($template);
-    if ($config == null) {
+    if ($config == NULL) {
       $config = \Drupal::entityTypeManager()->getStorage('image_style_template')->load('image_standard');
     }
     $imageStyles = [];

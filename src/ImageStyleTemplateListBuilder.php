@@ -16,8 +16,8 @@ class ImageStyleTemplateListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['label'] = t('Label');
-    $header['id'] = t('Machine name');
+    $header['label'] = $this->t('Label');
+    $header['id'] = $this->t('Machine name');
     return $header + parent::buildHeader();
   }
 
@@ -37,7 +37,7 @@ class ImageStyleTemplateListBuilder extends ConfigEntityListBuilder {
     $operations = parent::getDefaultOperations($entity);
     if ($entity->hasLinkTemplate('edit-form')) {
       $operations['edit'] = [
-        'title' => t('Edit Image Style Template'),
+        'title' => $this->t('Edit Image Style Template'),
         'weight' => 20,
         'url' => $entity->toUrl('edit-form'),
       ];

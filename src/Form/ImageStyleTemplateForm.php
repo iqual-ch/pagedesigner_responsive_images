@@ -5,6 +5,7 @@ namespace Drupal\pagedesigner_responsive_images\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
 
 /**
  * Defines the image style template form.
