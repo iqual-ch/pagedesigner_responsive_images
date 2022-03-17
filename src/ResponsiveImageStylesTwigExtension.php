@@ -76,10 +76,10 @@ class ResponsiveImageStylesTwigExtension extends \Twig_Extension {
    */
   public function getStyledImageUrl(string $uri, string $styleName = '') {
     if (empty($styleName)) {
-      return file_create_url($uri);
+      return \Drupal::service('file_url_generator')->generateString($uri);
     }
     $style = ImageStyle::load($styleName);
-    return $style->buildUrl($uri);
+    return \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($uri));
   }
 
 }

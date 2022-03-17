@@ -57,13 +57,13 @@ class ResponsiveImageGalleryGallery extends GalleryGallery {
               ->getStorage('image_style')
               ->load('pagedesigner_default');
             if ($style != NULL) {
-              $url = $previewUrl = $style->buildUrl($file->getFileUri());
+              $url = $previewUrl = \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($file->getFileUri()));
             }
             $style = \Drupal::entityTypeManager()
               ->getStorage('image_style')
               ->load('thumbnail');
             if ($style != NULL) {
-              $previewUrl = $style->buildUrl($file->getFileUri());
+              $previewUrl = \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($file->getFileUri()));
             }
 
             $data[] = [
