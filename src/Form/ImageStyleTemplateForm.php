@@ -43,7 +43,7 @@ class ImageStyleTemplateForm extends EntityForm {
     $form['settings'] = [
       '#type' => 'textarea',
       '#title' => 'Settings',
-      '#default_value' => Yaml::decode($template->get('settings')),
+      '#default_value' => $template->get('settings') ? Yaml::decode($template->get('settings')) : '',
       '#required' => TRUE,
     ];
 
