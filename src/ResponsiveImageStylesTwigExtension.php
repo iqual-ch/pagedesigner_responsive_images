@@ -76,11 +76,12 @@ class ResponsiveImageStylesTwigExtension extends AbstractExtension {
    *   URL to image after image style is applied.
    */
   public function getStyledImageUrl(string $uri, string $styleName = '') {
+    $urlGenerator = \Drupal::service('file_url_generator');
     if (empty($styleName)) {
-      return \Drupal::service('file_url_generator')->generateString($uri);
+      return $urlGenerator->transformRelative($urlGenerator->generateString($uri));
     }
     $style = ImageStyle::load($styleName);
-    return \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($uri));
+    return $urlGenerator->transformRelative($style->buildUrl($uri));
   }
 
 }
