@@ -29,9 +29,11 @@ class ImageStylePathProcessor implements InboundPathProcessorInterface {
           ->getStorage('image_style')
           ->load($imageStyle);
 
-        $imgUrl = \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($imgUri));
-        $response = new RedirectResponse($imgUrl);
-        $response->send();
+        if ($style) {
+          $imgUrl = \Drupal::service('file_url_generator')->transformRelative($style->buildUrl($imgUri));
+          $response = new RedirectResponse($imgUrl);
+          $response->send();
+        }
       }
     }
     return $path;
