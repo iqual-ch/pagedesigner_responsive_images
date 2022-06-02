@@ -29,9 +29,11 @@ class ImageStylePathProcessor implements InboundPathProcessorInterface {
           ->getStorage('image_style')
           ->load($imageStyle);
 
-        $imgUrl = $style->buildUrl($imgUri);
-        $response = new RedirectResponse($imgUrl);
-        $response->send();
+        if ($style) {
+          $imgUrl = $style->buildUrl($imgUri);
+          $response = new RedirectResponse($imgUrl);
+          $response->send();
+        }
       }
     }
     return $path;
