@@ -61,7 +61,7 @@ class ResponsiveImage extends Image {
   /**
    * {@inheritdoc}
    */
-  public function getContent(Element $entity, array &$list = []) {
+  public function getContent(Element $entity, array &$list = [], $published = TRUE) {
 
   }
 
