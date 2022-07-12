@@ -311,8 +311,9 @@
             return this.inputEl;
           },
           getRenderValue: function () {
-            if (this.model.get('value') && this.model.get('value').items) {
-              return  this.model.get('value').items.map(function(item){
+            let value = this.model.target.attributes.attributes[this.model.get('name')];
+            if (value && value.items) {
+              return value.items.map(function(item){
                 item.uri = 'public:/' + item.src.replace(location.origin, '');
                 return item;
               });
