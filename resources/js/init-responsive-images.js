@@ -198,7 +198,9 @@
             } else {
               var value = this.getValueForTarget();
               this.model.renderValue = this.getRenderValue(value);
-              this.model.setTargetValue(value, opts);
+              this.model.target.attributes.attributes[this.model.get('name')] = [value];
+              component = this.model.target;
+              component.updateView(component, { force: true });
             }
 
             for (var targetField in this.model.attributes.relations ) {
