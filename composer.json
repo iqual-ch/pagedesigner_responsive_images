@@ -1,7 +1,7 @@
 {
-  "name": "iqual/pagedesigner_responsive_images",
+  "name": "drupal/pagedesigner_responsive_images",
   "description": "An extension to support responsive image in pagedesigner",
-  "type": "drupal-custom-module",
+  "type": "drupal-module",
   "keywords": [
     "Drupal",
     "Editing"

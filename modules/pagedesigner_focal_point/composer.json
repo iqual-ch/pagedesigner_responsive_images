@@ -1,7 +1,7 @@
 {
-  "name": "iqual/pagedesigner_focal_point",
+  "name": "drupal/pagedesigner_focal_point",
   "description": "Focal point extension for Pagedesigner Responsive Images module",
-  "type": "drupal-custom-module",
+  "type": "drupal-module",
   "keywords": [
     "Drupal",
     "Editing"
@@ -13,6 +13,6 @@
   },
   "license": "GPL-2.0+",
   "require": {
-    "iqual/pagedesigner_responsive_images": "*"
+    "drupal/pagedesigner_responsive_images": "*"
   }
 }
