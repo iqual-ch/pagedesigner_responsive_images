@@ -2,28 +2,27 @@ name: Git Sync
 
 on: push
 
-jobs:
-
-  git-sync-tags-2-0:
+jobs:  
+  git-sync-tags-2-1-2:
     runs-on: ubuntu-latest
     steps:
       - name: git-sync
         uses: wei/git-sync@v3
         with:
           source_repo: "git@github.com:iqual-ch/pagedesigner_responsive_images.git"
-          source_branch: "refs/tags/v2.0"                                          # <-- set source_branch to the "refs/tags/*" to mirror tags
+          source_branch: "refs/tags/2.1.2"                                          # <-- set source_branch to the "refs/tags/*" to mirror tags
           destination_repo: "git@git.drupal.org:project/pagedesigner_responsive_images.git"
-          destination_branch: "refs/tags/2.0.0"                                     # <-- set destination_branch to the "refs/tags/*"
+          destination_branch: "refs/tags/2.1.2"                                     # <-- set destination_branch to the "refs/tags/*"
           ssh_private_key: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
-  
-  git-sync-tags-2-1-1:
+          
+  git-sync-code:
     runs-on: ubuntu-latest
     steps:
       - name: git-sync
         uses: wei/git-sync@v3
         with:
-          source_repo: "git@github.com:iqual-ch/pagedesigner_responsive_images.git"
-          source_branch: "refs/tags/2.1.1"                                          # <-- set source_branch to the "refs/tags/*" to mirror tags
-          destination_repo: "git@git.drupal.org:project/pagedesigner_responsive_images.git"
-          destination_branch: "refs/tags/2.1.1"                                     # <-- set destination_branch to the "refs/tags/*"
-          ssh_private_key: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+          source_repo: "git@github.com:iqual-ch/pagedesigner_responsive_images.git"             # <-- get source_repo from GitHub clone with SSH e.g.: git@github.com:iqual-ch/iq_module_name.git
+          source_branch: "2.x"                                                  # <-- set source_branch to the name of the branch you want mirrored
+          destination_repo: "git@git.drupal.org:project/pagedesigner_responsive_images.git"    # <-- get destination_repo from GitLab clone with SSH e.g.: git@git.drupal.org:project/module_name.git
+          destination_branch: "2.x"
+          ssh_private_key: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}                # <-- use 'secrets' to pass credential information.
