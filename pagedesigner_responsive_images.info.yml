@@ -8,4 +8,4 @@ package: 'pagedesigner'
 dependencies:
   - pagedesigner:pagedesigner
   - pagedesigner:pagedesigner_image
-  - imageapi_optimize:imageapi_optimize_webp
+  - imageapi_optimize_webp:imageapi_optimize_webp
