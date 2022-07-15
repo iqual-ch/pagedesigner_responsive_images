@@ -3,16 +3,16 @@ name: Git Sync
 on: push
 
 jobs:  
-  git-sync-tags-2-1-2:
+  git-sync-tags-2-1-3:
     runs-on: ubuntu-latest
     steps:
       - name: git-sync
         uses: wei/git-sync@v3
         with:
           source_repo: "git@github.com:iqual-ch/pagedesigner_responsive_images.git"
-          source_branch: "refs/tags/2.1.2"                                          # <-- set source_branch to the "refs/tags/*" to mirror tags
+          source_branch: "refs/tags/2.1.3"                                          # <-- set source_branch to the "refs/tags/*" to mirror tags
           destination_repo: "git@git.drupal.org:project/pagedesigner_responsive_images.git"
-          destination_branch: "refs/tags/2.1.2"                                     # <-- set destination_branch to the "refs/tags/*"
+          destination_branch: "refs/tags/2.1.3"                                     # <-- set destination_branch to the "refs/tags/*"
           ssh_private_key: ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
           
   git-sync-code:
